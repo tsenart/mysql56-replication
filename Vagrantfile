@@ -4,10 +4,11 @@ Vagrant.configure("2") do |config|
     vb.customize ["modifyvm", :id, "--memory", "1024"]
   end
 
-  %w[master slave1 slave2 slave3].each_with_index do |name, i|
+  %w[master slave1 slave2 slave3 slave4].each_with_index do |name, i|
+    ip_address = "10.0.0.#{100+i}"
     config.vm.define name do |node|
       node.vm.hostname = name
-      node.vm.network "private_network", ip: "10.0.0.#{100+i}"
+      node.vm.network "private_network", ip: ip_address
       node.vm.provision "chef_solo" do |chef|
         chef.add_recipe "percona::server"
         chef.json = {
@@ -17,7 +18,7 @@ Vagrant.configure("2") do |config|
             :server => {
               :package                   => "percona-server-server-5.6",
               :debian_username           => "root",
-              :bind_address              => "10.0.0.#{100+i}",
+              :bind_address              => ip_address,
               :role                      => name.gsub(/\d/, ""),
               :binlog_format             => "ROW",
               :enforce_gtid_consistency  => "true",
@@ -25,6 +26,7 @@ Vagrant.configure("2") do |config|
               :log_slave_updates         => true,
               :relay_log_info_repository => "TABLE",
               :relay_log_recovery        => "on",
+              :report_host               => ip_address,
               :server_id                 => i + 1,
               :sync_binlog               => 0,
             }
