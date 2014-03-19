@@ -31,6 +31,9 @@ Vagrant.configure("2") do |config|
           }
         }
       end
+      node.vm.provision "shell", inline: %Q{
+        mysql -uroot -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION"
+      }
     end
   end
 end
