@@ -7,8 +7,7 @@ Vagrant.configure("2") do |config|
   %w[master slave1 slave2 slave3].each_with_index do |name, i|
     config.vm.define name do |node|
       node.vm.hostname = name
-      node.vm.network "private_network", ip: "10.0.0.1%d" % i, virtualbox__intnet: true
-      node.vm.network "forwarded_port", guest: 3306, host: 3307 + i
+      node.vm.network "private_network", ip: "10.0.0.#{100+i}"
       node.vm.provision "chef_solo" do |chef|
         chef.add_recipe "percona::server"
         chef.json = {
@@ -17,7 +16,7 @@ Vagrant.configure("2") do |config|
             :server => {
               :package                   => "percona-server-server-5.6",
               :debian_username           => "root",
-              :bind_to                   => "private_ip",
+              :bind_address              => "10.0.0.#{100+i}",
               :role                      => name.gsub(/\d/, ""),
               :binlog_format             => "ROW",
               :enforce_gtid_consistency  => "true",
