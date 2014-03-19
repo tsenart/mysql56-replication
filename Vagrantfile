@@ -17,20 +17,15 @@ Vagrant.configure("2") do |config|
               :package                   => "percona-server-server-5.6",
               :debian_username           => "root",
               :bind_to                   => "private_ip",
-            },
-            :conf => {
-              :mysqld => {
-                :binlog_format             => "ROW",
-                :enforce_gtid_consistency  => "true",
-                :gtid_mode                 => "on",
-                :log_bin                   => "#{name}.bin",
-                :log_slave_updates         => true,
-                :relay_log_info_repository => "TABLE",
-                :relay_log_recovery        => "on",
-                :relay_log                 => "#{name}-relay.bin",
-                :server_id                 => i + 1,
-                :sync_binlog               => 0,
-              }
+              :role                      => name.gsub(/\d/, ""),
+              :binlog_format             => "ROW",
+              :enforce_gtid_consistency  => "true",
+              :gtid_mode                 => "on",
+              :log_slave_updates         => true,
+              :relay_log_info_repository => "TABLE",
+              :relay_log_recovery        => "on",
+              :server_id                 => i + 1,
+              :sync_binlog               => 0,
             }
           }
         }
