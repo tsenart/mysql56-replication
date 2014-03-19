@@ -25,6 +25,7 @@ Vagrant.configure("2") do |config|
               :gtid_mode                 => "on",
               :log_slave_updates         => true,
               :relay_log_info_repository => "TABLE",
+              :master_info_repository    => "TABLE",
               :relay_log_recovery        => "on",
               :report_host               => ip_address,
               :server_id                 => i + 1,
