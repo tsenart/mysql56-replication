@@ -12,7 +12,8 @@ Vagrant.configure("2") do |config|
         chef.add_recipe "percona::server"
         chef.json = {
           :percona => {
-            :skip_passwords => true,
+            :skip_passwords   => true,
+            :main_config_file => "/etc/mysql/my.cnf",
             :server => {
               :package                   => "percona-server-server-5.6",
               :debian_username           => "root",
