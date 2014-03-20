@@ -1,6 +1,6 @@
 [submodule "cookbooks/percona"]
 	path = cookbooks/percona
-	url = git@github.com:phlipper/chef-percona.git
+	url = git@github.com:tsenart/chef-percona.git
 [submodule "cookbooks/apt"]
 	path = cookbooks/apt
 	url = git@github.com:opscode-cookbooks/apt.git

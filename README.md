@@ -12,6 +12,7 @@ of MySQL 5.6 replication topologies that can be played with.
 ```sh
 $ git clone git@github.com:tsenart/mysql56-replication.git
 $ cd mysql56-replication
+$ git submodule init && git submodule update
 $ vagrant up # takes a while.... go get a coffee
 $ ./install_mysql_utilities.sh
 ```
