@@ -20,6 +20,7 @@ Vagrant.configure("2") do |config|
               :package                   => "percona-server-server-5.6",
               :debian_username           => "root",
               :bind_address              => addr,
+              :port                      => { "slave" => 3307, "master" => 3306 }[role],
               :role                      => role,
               :binlog_format             => "ROW",
               :enforce_gtid_consistency  => "true",
